@@ -24,41 +24,15 @@ class App extends Component {
 
   render() {
     return (
-      <Tab />
-      // <Stack />
+      <Stack />
     );
   }
 }
 
-const Stack = StackNavigator(
-  {
-    Home: {
-      //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
-      screen: HomeScreen,
-      //配置StackNavigator的一些属性
-      navigationOptions: ({navigation}) => ({
-        headerTitle: '首页',
-      }),
-    },
-    Xiao: {
-      screen: XiaoScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTitle: '肖',
-      }),
-    },
-    Mine: {
-      screen: MineScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTitle: '我',
-      }),
-    },
-  }
-);
-
 //底部导航栏
 const Tab = TabNavigator(
   {
-    news: {
+    News: {
       //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
       screen: Pages.NewsPage,
       //配置TabNavigator的一些属性
@@ -76,7 +50,7 @@ const Tab = TabNavigator(
         )
       }),
     },
-    contact: {
+    Contact: {
       screen: Pages.ContactPage,
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '联系人',
@@ -90,7 +64,7 @@ const Tab = TabNavigator(
         )
       }),
     },
-    action: {
+    Action: {
       screen: Pages.ActionPage,
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '动态',
@@ -124,6 +98,52 @@ const Tab = TabNavigator(
         fontSize: 14, // 文字大小
       },
     }
+  }
+);
+
+const Stack = StackNavigator(
+  {
+    Tab: {
+      screen: Tab,
+      navigationOptions: ({navigation}) => {
+        let headerTitle = '';
+        if(navigation.state.index == 0) {
+          headerTitle = '消息';
+        }
+        if(navigation.state.index == 1) {
+          headerTitle = '联系人';
+        }
+        if(navigation.state.index == 2) {
+          headerTitle = '动态';
+        }
+        return ({
+          headerTitle: headerTitle,
+        });
+      }
+    },
+    Home: {
+      //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
+      screen: HomeScreen,
+      //配置StackNavigator的一些属性
+      navigationOptions: ({navigation}) => ({
+        headerTitle: '首页',
+      }),
+    },
+    Xiao: {
+      screen: XiaoScreen,
+      navigationOptions: ({navigation}) => ({
+        headerTitle: '肖',
+      }),
+    },
+    Mine: {
+      screen: MineScreen,
+      navigationOptions: ({navigation}) => ({
+        headerTitle: '我',
+      }),
+    },
+  },
+  {
+    headerMode: 'screen',
   }
 );
 

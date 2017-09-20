@@ -19,6 +19,10 @@ class NewsPage extends Component {
         <Text>
           我是消息
         </Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('Home')}
+          title="Go to Home"
+        />
       </View>
     );
   }
