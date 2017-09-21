@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Image,
+  Button,
 } from 'react-native';
 
 import {
@@ -10,6 +11,10 @@ import {
   TabNavigator,
   TabBarBottom,
 } from 'react-navigation';
+
+import {
+  Icon,
+} from 'antd-mobile';
 
 import HomeScreen from './pages/HomePage';
 import MineScreen from './pages/MinePage';
@@ -55,12 +60,11 @@ const Tab = TabNavigator(
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '联系人',
         tabBarIcon: ({focused,tintColor}) => (
-          //focused是否选中标签
-          //tintColor选中时的颜色
           <Image
             style={styles.icon}
             source={focused ? home : homeO}
           />
+          // <Icon type={'\ue601'} size={25} />
         )
       }),
     },
@@ -106,18 +110,12 @@ const Stack = StackNavigator(
     Tab: {
       screen: Tab,
       navigationOptions: ({navigation}) => {
-        let headerTitle = '';
-        if(navigation.state.index == 0) {
-          headerTitle = '消息';
-        }
-        if(navigation.state.index == 1) {
-          headerTitle = '联系人';
-        }
-        if(navigation.state.index == 2) {
-          headerTitle = '动态';
-        }
+        const { routes, index } = navigation.state;
+        let params = routes[index].params;
         return ({
-          headerTitle: headerTitle,
+          headerTitle: params && params.headerTitle,
+          headerLeft: params && params.headerLeft,
+          headerRight: params && params.headerRight,
         });
       }
     },
@@ -126,6 +124,7 @@ const Stack = StackNavigator(
       screen: HomeScreen,
       //配置StackNavigator的一些属性
       navigationOptions: ({navigation}) => ({
+        //设置导航栏标题
         headerTitle: '首页',
       }),
     },
@@ -143,6 +142,8 @@ const Stack = StackNavigator(
     },
   },
   {
+    //返回上级页面时动画效果
+    //screen：滑动过程中，整个页面都会返回
     headerMode: 'screen',
   }
 );

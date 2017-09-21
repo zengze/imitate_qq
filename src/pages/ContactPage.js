@@ -12,6 +12,24 @@ const marginTop = Platform.OS === 'ios' ? 20 : 0;
 
 class ContactPage extends Component {
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      headerTitle: '联系人',
+      headerLeft: (
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="个人信息"
+        />
+      ),
+      headerRight: (
+        <Button
+          onPress={() => this.props.navigation.navigate('Home')}
+          title="添加"
+        />
+      ),
+    });
+  }
+
   render() {
 
     return (
