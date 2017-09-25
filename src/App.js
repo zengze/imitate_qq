@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import {
   StyleSheet,
-  Image,
-  Button,
 } from 'react-native';
 
 import {
@@ -21,9 +19,6 @@ import MineScreen from './pages/MinePage';
 import XiaoScreen from './pages/XiaoPage';
 
 import * as Pages from './pages';
-
-import homeO from './img/home-o.png';
-import home from './img/home.png';
 
 class App extends Component {
 
@@ -48,10 +43,7 @@ const Tab = TabNavigator(
         tabBarIcon: ({focused,tintColor}) => (
           //focused是否选中标签
           //tintColor选中时的颜色
-          <Image
-            style={styles.icon}
-            source={focused ? home : homeO}
-          />
+          <Icon type={focused ? '\ue68f' : '\ue6ab'} size={25} color={tintColor} />
         )
       }),
     },
@@ -60,11 +52,7 @@ const Tab = TabNavigator(
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '联系人',
         tabBarIcon: ({focused,tintColor}) => (
-          <Image
-            style={styles.icon}
-            source={focused ? home : homeO}
-          />
-          // <Icon type={'\ue601'} size={25} />
+          <Icon type={focused ? '\ue66d' : '\ue66a'} size={25} color={tintColor} />
         )
       }),
     },
@@ -73,12 +61,7 @@ const Tab = TabNavigator(
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '动态',
         tabBarIcon: ({focused,tintColor}) => (
-          //focused是否选中标签
-          //tintColor选中时的颜色
-          <Image
-            style={styles.icon}
-            source={focused ? home : homeO}
-          />
+          <Icon type={focused ? '\ue67e' : '\ue6d3'} size={25} color={tintColor} />
         )
       }),
     },
@@ -149,10 +132,7 @@ const Stack = StackNavigator(
 );
 
 const styles = StyleSheet.create({
-  icon: {
-    width: 20,
-    height: 20,
-  }
+  
 });
 
 export default App;
