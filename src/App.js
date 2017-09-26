@@ -125,6 +125,8 @@ const Stack = StackNavigator(
     },
   },
   {
+    //定义跳转风格
+    mode: 'card',
     //返回上级页面时动画效果
     //screen：滑动过程中，整个页面都会返回
     headerMode: 'screen',
@@ -132,7 +134,7 @@ const Stack = StackNavigator(
 );
 
 const styles = StyleSheet.create({
-  
+
 });
 
 export default App;
