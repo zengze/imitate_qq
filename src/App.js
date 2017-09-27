@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import {
   StyleSheet,
+  Text,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -97,7 +99,13 @@ const Stack = StackNavigator(
         let params = routes[index].params;
         return ({
           headerTitle: params && params.headerTitle,
-          headerLeft: params && params.headerLeft,
+          headerLeft: (
+            <TouchableOpacity onPress={() => {}}>
+              <Text style={{ marginLeft: 10 }}>
+                <Icon type={'\ue66e'} size={25} />
+              </Text>
+            </TouchableOpacity>
+          ),
           headerRight: params && params.headerRight,
         });
       }

@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
 
-const marginTop = Platform.OS === 'ios' ? 20 : 0;
+import {
+  Icon,
+} from 'antd-mobile';
 
 class NewsPage extends Component {
 
   componentDidMount() {
     this.props.navigation.setParams({
       headerTitle: '消息',
-      headerLeft: (
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="个人信息"
-        />
-      ),
       headerRight: (
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="更多"
-        />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+          <Text style={{ marginRight: 10 }}>
+            <Icon type={'\ue647'} size={25} />
+          </Text>
+        </TouchableOpacity>
       ),
     });
   }
@@ -37,10 +33,6 @@ class NewsPage extends Component {
         <Text>
           我是消息
         </Text>
-        <Button
-          onPress={() => this.props.navigation.navigate('Home')}
-          title="Go to Home"
-        />
       </View>
     );
   }

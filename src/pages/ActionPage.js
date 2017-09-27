@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
 
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
-
-const marginTop = Platform.OS === 'ios' ? 20 : 0;
 
 class ActionPage extends Component {
 
   componentDidMount() {
     this.props.navigation.setParams({
       headerTitle: '动态',
-      headerLeft: (
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="个人信息"
-        />
-      ),
       headerRight: (
-        <Button
-          onPress={() => this.props.navigation.navigate('Xiao')}
-          title="更多"
-        />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+          <Text style={{ marginRight: 10, fontSize: 16 }}>
+            更多
+          </Text>
+        </TouchableOpacity>
       ),
     });
   }
