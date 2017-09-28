@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class NewsPage extends Component {
 
@@ -16,9 +16,7 @@ class NewsPage extends Component {
       headerTitle: '消息',
       headerRight: (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-          <Text style={{ marginRight: 10 }}>
-            <Icon name="rocket" size={25} />
-          </Text>
+          <FontAwesome name="ellipsis-h" size={20} style={{ marginRight: 10 }}/>
         </TouchableOpacity>
       ),
     });
