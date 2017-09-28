@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import {
   StyleSheet,
-  Text,
   TouchableOpacity,
 } from 'react-native';
 
@@ -12,9 +11,7 @@ import {
   TabBarBottom,
 } from 'react-navigation';
 
-import {
-  Icon,
-} from 'antd-mobile';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from './pages/HomePage';
 import MineScreen from './pages/MinePage';
@@ -45,7 +42,10 @@ const Tab = TabNavigator(
         tabBarIcon: ({focused,tintColor}) => (
           //focused是否选中标签
           //tintColor选中时的颜色
-          <Icon type={focused ? '\ue68f' : '\ue6ab'} size={25} color={tintColor} />
+          <FontAwesome
+            size={25}
+            color={tintColor}
+            name={focused ? 'commenting-o' : 'comment-o'} />
         )
       }),
     },
@@ -54,7 +54,10 @@ const Tab = TabNavigator(
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '联系人',
         tabBarIcon: ({focused,tintColor}) => (
-          <Icon type={focused ? '\ue66d' : '\ue66a'} size={25} color={tintColor} />
+          <FontAwesome
+            size={25}
+            color={tintColor}
+            name={focused ? 'user-circle-o' : 'user-o'} />
         )
       }),
     },
@@ -63,7 +66,10 @@ const Tab = TabNavigator(
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '动态',
         tabBarIcon: ({focused,tintColor}) => (
-          <Icon type={focused ? '\ue67e' : '\ue6d3'} size={25} color={tintColor} />
+          <FontAwesome
+            size={25}
+            color={tintColor}
+            name={focused ? 'star' : 'star-o'} />
         )
       }),
     },
@@ -101,9 +107,10 @@ const Stack = StackNavigator(
           headerTitle: params && params.headerTitle,
           headerLeft: (
             <TouchableOpacity onPress={() => {}}>
-              <Text style={{ marginLeft: 10 }}>
-                <Icon type={'\ue66e'} size={25} />
-              </Text>
+              <FontAwesome
+                size={20}
+                style={{ marginLeft: 10 }}
+                name={'address-card-o'} />
             </TouchableOpacity>
           ),
           headerRight: params && params.headerRight,

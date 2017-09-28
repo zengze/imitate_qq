@@ -16,7 +16,7 @@ class NewsPage extends Component {
       headerTitle: '消息',
       headerRight: (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-          <FontAwesome name="ellipsis-h" size={20} style={{ marginRight: 10 }}/>
+          <FontAwesome name="bars" size={20} style={{ marginRight: 10 }}/>
         </TouchableOpacity>
       ),
     });
