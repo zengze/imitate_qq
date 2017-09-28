@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {
-  Icon,
-} from 'antd-mobile';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class NewsPage extends Component {
 
@@ -19,7 +17,7 @@ class NewsPage extends Component {
       headerRight: (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
           <Text style={{ marginRight: 10 }}>
-            <Icon type={'\ue647'} size={25} />
+            <Icon name="rocket" size={25} />
           </Text>
         </TouchableOpacity>
       ),
