@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import {
   StyleSheet,
+  Platform,
+  View,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 
@@ -20,6 +23,8 @@ import XiaoScreen from './pages/XiaoPage';
 
 import * as Pages from './pages';
 
+const marginTop = Platform.OS === 'ios' ? 20 : 0;
+
 class App extends Component {
 
   render() {
@@ -36,7 +41,7 @@ const Tab = TabNavigator(
       //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
       screen: Pages.NewsPage,
       //配置TabNavigator的一些属性
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         //设置标签栏的title
         tabBarLabel: '消息',
         //设置标签栏的图标。需要给每个都设置
@@ -52,7 +57,7 @@ const Tab = TabNavigator(
     },
     Contact: {
       screen: Pages.ContactPage,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         tabBarLabel: '联系人',
         tabBarIcon: ({focused,tintColor}) => (
           <FontAwesome
@@ -64,7 +69,7 @@ const Tab = TabNavigator(
     },
     Action: {
       screen: Pages.ActionPage,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         tabBarLabel: '动态',
         tabBarIcon: ({focused,tintColor}) => (
           <FontAwesome
@@ -79,19 +84,27 @@ const Tab = TabNavigator(
     tabBarComponent: TabBarBottom,
     //设置tabbar的位置，iOS默认在底部，安卓默认在顶部。（属性值：'top'，'bottom'）
     tabBarPosition: 'bottom',
-    //是否允许在标签之间进行滑动
-    // swipeEnabled: true,
+    // 是否允许在标签之间进行滑动
+    swipeEnabled: false,
     //是否在更改标签时显示动画
     animationEnabled: false,
     //是否根据需要懒惰呈现标签，而不是提前，意思是在app打开的时候将底部标签栏全部加载，默认false,推荐为true
     lazy: true,
     //tabBarOptions：配置标签栏的一些属性iOS属性
     tabBarOptions: {
+      //label和icon的前景色 活跃状态下
       activeTintColor: '#06c1ae',
+      //label和icon的前景色 不活跃状态下
       inactiveTintColor: '#979797',
-      style: { backgroundColor: '#ffffff' },
+      //tabbar的样式
+      style: {
+        //背景色，默认为白色
+        backgroundColor: '#ffffff',
+      },
+      //label的样式
       labelStyle: {
-        fontSize: 14, // 文字大小
+        // 文字大小
+        fontSize: 14,
       },
     }
   }
@@ -102,27 +115,41 @@ const Stack2 = StackNavigator(
   {
     Tab: {
       screen: Tab,
-      navigationOptions: ({navigation}) => {
-        const { routes, index } = navigation.state;
+      navigationOptions: (props) => {
+        const { state, navigate } = props.navigation;
+        const { routes, index } = state;
         let params = routes[index].params;
         return ({
+          //设置导航栏标题
           headerTitle: params && params.headerTitle,
+          //设置跳转页面后左侧返回箭头后面的文字，默认是本页面的标题。
           headerBackTitle: '返回',
+          //设置导航条左侧。可以是按钮或者其他视图控件
           headerLeft: (
-            <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+            <TouchableOpacity onPress={() => navigate('DrawerOpen')}>
               <FontAwesome
                 size={20}
-                style={{ marginLeft: 10 }}
+                style={{ marginLeft: 10, color: 'red' }}
                 name={'address-card-o'} />
             </TouchableOpacity>
           ),
+          //设置导航条右侧。可以是按钮或者其他视图控件
           headerRight: params && params.headerRight,
+          //设置导航条的样式
+          headerStyle: {
+            backgroundColor: '#34bce7',
+          },
+          //设置导航条文字样式
+          headerTitleStyle: {
+            //文字居中
+            alignSelf: 'center',
+          }
         });
       }
     },
     Mine: {
       screen: MineScreen,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         headerTitle: '我',
       }),
     },
@@ -141,19 +168,29 @@ const Drawer = DrawerNavigator(
   {
     Setting: {
       screen: Stack2,
-      navigationOptions: {
-        drawerLabel: '设置',
-      },
-    },
-    Mine: {
-      screen: MineScreen,
-      navigationOptions: {
-        drawerLabel: '我',
-      },
     },
   },
   {
+    // 抽屉宽度
     drawerWidth: 250,
+    // 抽屉在左边还是右边，默认left
+    drawerPosition: 'left',
+    // 自定义抽屉显示内容
+    contentComponent: (props) => {
+      return (
+        <View style={styles.container}>
+          <View>
+            <FontAwesome
+              size={25}
+              name={'star'}
+            />
+            <Text>
+              我的超级会员
+            </Text>
+          </View>
+        </View>
+      )
+    },
   }
 );
 
@@ -170,20 +207,20 @@ const Stack1 = StackNavigator(
       //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
       screen: HomeScreen,
       //配置StackNavigator的一些属性
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         //设置导航栏标题
         headerTitle: '首页',
       }),
     },
     Xiao: {
       screen: XiaoScreen,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         headerTitle: '肖',
       }),
     },
     Mine: {
       screen: MineScreen,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: (props) => ({
         headerTitle: '我',
       }),
     },
@@ -198,7 +235,16 @@ const Stack1 = StackNavigator(
 );
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    marginTop: marginTop + 50,
+    marginLeft: 20,
+    //按照屏幕自适应
+    width: null,
+    height: null,
+    //祛除内部元素的白色背景
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
 });
 
 export default App;
