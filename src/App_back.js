@@ -8,7 +8,6 @@ import {
 import {
   StackNavigator,
   TabNavigator,
-  DrawerNavigator,
   TabBarBottom,
 } from 'react-navigation';
 
@@ -24,7 +23,7 @@ class App extends Component {
 
   render() {
     return (
-      <Stack1 />
+      <Stack />
     );
   }
 }
@@ -80,7 +79,7 @@ const Tab = TabNavigator(
     //设置tabbar的位置，iOS默认在底部，安卓默认在顶部。（属性值：'top'，'bottom'）
     tabBarPosition: 'bottom',
     //是否允许在标签之间进行滑动
-    // swipeEnabled: true,
+    swipeEnabled: true,
     //是否在更改标签时显示动画
     animationEnabled: false,
     //是否根据需要懒惰呈现标签，而不是提前，意思是在app打开的时候将底部标签栏全部加载，默认false,推荐为true
@@ -97,8 +96,7 @@ const Tab = TabNavigator(
   }
 );
 
-//侧滑菜单导航栏的顶部页面跳转和传递参数
-const Stack2 = StackNavigator(
+const Stack = StackNavigator(
   {
     Tab: {
       screen: Tab,
@@ -107,9 +105,8 @@ const Stack2 = StackNavigator(
         let params = routes[index].params;
         return ({
           headerTitle: params && params.headerTitle,
-          headerBackTitle: '返回',
           headerLeft: (
-            <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+            <TouchableOpacity onPress={() => {}}>
               <FontAwesome
                 size={20}
                 style={{ marginLeft: 10 }}
@@ -119,52 +116,6 @@ const Stack2 = StackNavigator(
           headerRight: params && params.headerRight,
         });
       }
-    },
-    Mine: {
-      screen: MineScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTitle: '我',
-      }),
-    },
-  },
-  {
-    //定义跳转风格
-    mode: 'card',
-    //返回上级页面时动画效果
-    //screen：滑动过程中，整个页面都会返回
-    headerMode: 'screen',
-  }
-);
-
-//侧滑菜单导航栏
-const Drawer = DrawerNavigator(
-  {
-    Setting: {
-      screen: Stack2,
-      navigationOptions: {
-        drawerLabel: '设置',
-      },
-    },
-    Mine: {
-      screen: MineScreen,
-      navigationOptions: {
-        drawerLabel: '我',
-      },
-    },
-  },
-  {
-    drawerWidth: 250,
-  }
-);
-
-//底部导航栏的顶部页面跳转和传递参数
-const Stack1 = StackNavigator(
-  {
-    Drawer: {
-      screen: Drawer,
-      navigationOptions: {
-        header: null,
-      },
     },
     Home: {
       //screen：对应界面名称，需要填入import之后的页面，可以在其他页面通过这个screen传值和跳转。
