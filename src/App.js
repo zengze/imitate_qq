@@ -5,6 +5,7 @@ import {
   Platform,
   View,
   Text,
+  FlatList,
   TouchableOpacity,
 } from 'react-native';
 
@@ -177,17 +178,52 @@ const Drawer = DrawerNavigator(
     drawerPosition: 'left',
     // 自定义抽屉显示内容
     contentComponent: (props) => {
+      const data = [
+        {
+          key: '1',
+          iconNm: 'star',
+          textNm: '我的超级会员',
+        },
+        {
+          key: '2',
+          iconNm: 'star',
+          textNm: 'QQ钱包',
+        },
+      ];
       return (
         <View style={styles.container}>
-          <View>
+          <TouchableOpacity
+            style={styles.name}>
             <FontAwesome
-              size={25}
-              name={'star'}
-            />
-            <Text>
-              我的超级会员
+              size={30}
+              name={'star'}>
+              <Text>
+                &nbsp;&nbsp;肖雪丽是猪
+              </Text>
+            </FontAwesome>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sign}>
+            <Text numberOfLines={1}>
+              眼泪在眸角，仰着头，泪就不会涌出来
             </Text>
-          </View>
+          </TouchableOpacity>
+          <FlatList
+            style={styles.list}
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <TouchableOpacity style={styles.drawers}>
+                  <FontAwesome
+                    size={18}
+                    name={item.iconNm}>
+                    <Text>
+                      &nbsp;&nbsp;{item.textNm}
+                    </Text>
+                  </FontAwesome>
+                </TouchableOpacity>
+              )
+            }}
+          />
         </View>
       )
     },
@@ -237,13 +273,22 @@ const Stack1 = StackNavigator(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: marginTop + 50,
-    marginLeft: 20,
+    marginTop: marginTop,
+    margin: 20,
     //按照屏幕自适应
     width: null,
     height: null,
     //祛除内部元素的白色背景
     backgroundColor: 'rgba(0,0,0,0)',
+  },
+  name: {
+    marginTop: 50,
+  },
+  list: {
+    marginTop: 100,
+  },
+  drawers: {
+    marginVertical: 10,
   },
 });
 
